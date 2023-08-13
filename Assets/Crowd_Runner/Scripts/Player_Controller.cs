@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
-   [Header(" Settings ")]
-   [SerializeField] private float moveSpeed;
+    [Header(" Elements ")]
+    [SerializeField] private Crowd_System Crowd_System;
+
+    [Header(" Settings ")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float roadWidth;
 
     [Header(" Control ")]
     [SerializeField] private float slideSpeed;
@@ -45,11 +49,14 @@ public class Player_Controller : MonoBehaviour
             xScreenDifference /= Screen.width;
             xScreenDifference *= slideSpeed;
 
-            Vector3 position = transform.position;
+            Vector3 position = transform.position; 
             position.x = clickedPlayerPosition.x + xScreenDifference;
+
+            position.x = Mathf.Clamp(position.x, -roadWidth / 2 + Crowd_System.GetCrowdRadius(), 
+                roadWidth / 2 - Crowd_System.GetCrowdRadius());
             transform.position = position; 
 
-            transform.position = clickedPlayerPosition + Vector3.right * xScreenDifference;
+            //transform.position = clickedPlayerPosition + Vector3.right * xScreenDifference;
 
 
         }

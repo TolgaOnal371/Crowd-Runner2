@@ -14,9 +14,9 @@ public class Crowd_System : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            
+
     }
-     
+
     // Update is called once per frame
     void Update()
     {
@@ -26,11 +26,11 @@ public class Crowd_System : MonoBehaviour
     {
         for (int i = 0; i < runnersParent.childCount; i++)
         {
-           
+
 
             Vector3 childLocalPosition = GetRunnerLocalPosition(i);
             runnersParent.GetChild(i).localPosition = childLocalPosition;
-            
+
         }
     }
     private Vector3 GetRunnerLocalPosition(int index)
@@ -38,8 +38,15 @@ public class Crowd_System : MonoBehaviour
         float x = radius * Mathf.Sqrt(index) * Mathf.Cos(Mathf.Deg2Rad * index * angle);
         float z = radius * Mathf.Sqrt(index) * Mathf.Sin(Mathf.Deg2Rad * index * angle);
 
-        
-        return new Vector3(x*100, 0, z*100);
-        
+
+        return new Vector3(x * 100, 0, z * 100);
+
+    }
+
+
+    public float GetCrowdRadius()
+    {
+        return radius * Mathf.Sqrt(runnersParent.childCount);
     }
 }
+ 
