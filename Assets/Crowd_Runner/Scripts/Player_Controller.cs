@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
+   [Header(" Settings ")]
+   [SerializeField] private float moveSpeed;
+
+    [Header(" Control ")]
+    [SerializeField] private float slideSpeed;
+    private Vector3 clickedScreenPosition;
+    private Vector3 clickedPlayerPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +21,33 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MoveForward();
+
+        ManageControl();
+    }
+
+    private void MoveForward()
+    {
+        transform.position += Vector3.forward * Time.deltaTime * moveSpeed;
+    }
+
+    private void ManageControl()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            clickedScreenPosition = Input.mousePosition;
+            clickedPlayerPosition = transform.position;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            float xScreenDifference = Input.mousePosition.x - clickedScreenPosition.x;
+
+            xScreenDifference /= Screen.width;
+            xScreenDifference *= slideSpeed;
+
+            transform.position = clickedPlayerPosition + Vector3.right * xScreenDifference;
+
+
+        }
     }
 }
