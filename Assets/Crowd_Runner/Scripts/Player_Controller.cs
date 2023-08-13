@@ -30,7 +30,7 @@ public class Player_Controller : MonoBehaviour
     {
         transform.position += Vector3.forward * Time.deltaTime * moveSpeed;
     }
-
+    
     private void ManageControl()
     {
         if(Input.GetMouseButtonDown(0))
@@ -44,6 +44,10 @@ public class Player_Controller : MonoBehaviour
 
             xScreenDifference /= Screen.width;
             xScreenDifference *= slideSpeed;
+
+            Vector3 position = transform.position;
+            position.x = clickedPlayerPosition.x + xScreenDifference;
+            transform.position = position; 
 
             transform.position = clickedPlayerPosition + Vector3.right * xScreenDifference;
 
